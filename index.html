@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>Laundry!</title>
+</head>
+<body>
+  <div id="laundry-app" class="container">
 
+    <h1>Laundry Time!</h1>
+
+    <!-- <div class="flashcard-form">
+      <label for="front">Front
+        <input v-model="newFront" type="text" id="front">
+      </label>
+      <label for="back">Back
+        <input v-on:keypress.enter="addNew" v-model="newBack" type="text" id="back">
+      </label>
+      <button v-on:click="addNew">Add a New Card</button>
+      <span v-show="error" class="error">Oops! Flashcards need a front and a back.</span>
+    </div> -->
+
+    <ul class="washer-list">
+      <li v-on:click="toggleWasher(washer)" v-for="(washer, index) in washers">
+        <transition name="flip">
+          <p v-if="!washer.occupied" key="empty" class="washer">{{washer.front}}
+          </p>
+          <p v-else key="full" class="washer">{{washer.back}}
+          </p>
+        </transition>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script src="laundry.js"></script>
+</body>
+</html>
