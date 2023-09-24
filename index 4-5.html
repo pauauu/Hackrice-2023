@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>Laundry!</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Laundry Time!</h1>
+        <!-- Washers -->
+        <ul class="washer-list">
+            <li  id="machine1">
+                <h2>Washer 1 (Open)</h2>
+                <p class="washer" id="machine1p">
+                <button onclick="startMachine(1)">Start</button>
+                <img src="IMG_0900.gif" width="200" height="200" alt="murt" style="border-color: black; border-width:25px; border-radius: 10px;"/>
+                </p>
+            </li>
+            <li id="machine2">
+                <h2>Washer 2 (Open)</h2>
+                <p class="washer" id="machine2p">
+                <button onclick="startMachine(2)">Start</button>
+                <img src="IMG_0900.gif" width="200" height="200" alt="murt" style="border-color: black; border-width:25px; border-radius: 1px;"/>
+                </p>
+            </li>
+            <li  id="machine3">
+                <h2>Washer 3 (Open)</h2>
+                <p class="washer" id="machine3p">
+                <button onclick="startMachine(3)">Start</button>
+                <img src="IMG_0900.gif" width="200" height="200" alt="murt" style="border-color: black; border-width:25px; border-radius: 1px;"/>
+
+                </p>
+            </li>
+            <li  id="machine4">
+                <h2>Washer 4 (Open)</h2>
+                <p class="washer" id="machine4p">
+                <button onclick="startMachine(4)">Start</button>
+                <img src="IMG_0900.gif" width="200" height="200" alt="murt" style="border-color: black; border-width:25px; border-radius: 1px;"/>
+
+                </p>
+            </li>
+            <li  id="machine5">
+                <h2>Washer 5 (Open)</h2>
+                <p class="washer" id="machine5p">
+                <button onclick="startMachine(5)">Start</button>
+                <img src="IMG_0900.gif" width="200" height="200" alt="murt" style="border-color: black; border-width:25px; border-radius: 1px;"/>
+
+                </p>
+            </li>
+            <li  id="machine6">
+                <h2>Washer 6 (Open)</h2>
+                <p class="washer" id="machine6p">
+                <button onclick="startMachine(6)">Start</button>
+                <img src="IMG_0900.gif" width="200" height="200" alt="murt" style="border-color: black; border-width:25px; border-radius: 1px;"/>
+
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Halfway There!</h1>
+        <!-- Dryera -->
+        <ul class="washer-list">
+            <li  id="dryer1">
+                <h2>Dryer 1 (Open)</h2>
+                <p class="washer" id="dryer1p">
+                <button onclick="startDryer(1)">Start</button>
+                </p>
+            </li>
+            <li id="dryer2">
+                <h2>Dryer 2 (Open)</h2>
+                <p class="washer" id="dryer2p">
+                <button onclick="startDryer(2)">Start</button>
+                </p>
+            </li>
+            <li  id="dryer3">
+                <h2>Dryer 3 (Open)</h2>
+                <p class="washer" id="dryer3p">
+                <button onclick="startDryer(3)">Start</button>
+                </p>
+            </li>
+            <li  id="dryer4">
+                <h2>Dryer 4 (Open)</h2>
+                <p class="washer" id="dryer4p">
+                <button onclick="startDryer(4)">Start</button>
+                </p>
+            </li>
+            <li  id="dryer5">
+                <h2>Dryer 5 (Open)</h2>
+                <p class="washer" id="dryer5p">
+                <button onclick="startDryer(5)">Start</button>
+                </p>
+            </li>
+            <li  id="dryer6">
+                <h2>Dryer 6 (Open)</h2>
+                <p class="washer" id="dryer6p">
+                <button onclick="startDryer(6)">Start</button>
+                </p>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let dryers = [];
+            dryers[1] = "open";
+            dryers[2] = "open";
+            dryers[3] = "open";
+            dryers[4] = "open";
+            dryers[5] = "open";
+            dryers[6] = "open";
+        function startMachine(machineNumber) {
+                const machine = document.getElementById(`machine${machineNumber}`);
+                const startButton = machine.querySelector('button');
+                startButton.disabled = true;
+
+                const machinep = document.getElementById(`machine${machineNumber}p`);
+                const menu = document.createElement('div');
+                menu.innerHTML = `
+                    <label for="cycles">Washer Cycles:</label>
+                    <select id="cycles">
+                        <option value="1">Normal Hot</option>
+                        <option value="2">Normal Warm</option>
+                        <option value="3">Perm Press Warm</option>
+                        <option value="4">Delicates Cold</option>
+                    </select>
+                    <button onclick="startCycle(${machineNumber})">Start Cycle</button>
+                `;
+
+                machinep.appendChild(menu);
+        }
+
+        function startCycle(machineNumber) {
+            const cycles = parseInt(document.getElementById('cycles').value);
+            const machine = document.getElementById(`machine${machineNumber}`);
+            
+            if (cycles >= 1 && cycles <= 4) {
+                machine.innerHTML = `
+                    <h2>Washer ${machineNumber} (Full)</h2>
+                    <p class="washer">Time Remaining: <span id="timer${machineNumber}">${cycles * 10} seconds</span></p>
+                `;
+
+                let remainingTime = cycles * 10;
+                const timer = setInterval(() => {
+                    remainingTime -= 10;
+                    document.getElementById(`timer${machineNumber}`).textContent = `${remainingTime} seconds`;
+
+                    if (remainingTime <= 0) {
+                        clearInterval(timer);
+                        machine.innerHTML = `
+                            <h2>Washer ${machineNumber} (Waitng for pickup)</h2>
+                            <p class="washer" id="machine${machineNumber}p">
+                            <button onclick="restart(${machineNumber})">Take home</button>
+                            <button onclick="moveDryer(${machineNumber})">Move to a dryer</button>
+                            </p>
+                        `;
+                    }
+                }, 10000); // Actualizar cada 10 segundos
+            } else {
+                alert('Por favor, ingresa un valor válido para los ciclos.');
+            }
+        }
+
+        function moveDryer(machineNumber) {
+            for (let i = 0; i < 7; i++) {
+                if(dryers[1] == "closed" && dryers[2] == "closed" && dryers[3] == "closed" && dryers[4] == "closed" && dryers[5] == "closed" && dryers[6] == "closed")
+                {
+                const machine = document.getElementById(`machine${machineNumber}`);
+                machine.innerHTML = `
+                <h2>Wacher ${machineNumber} (Waiting for pickup)</h2>
+                <p class="washer" id="machine${machineNumber}p">
+                Dryers full
+                <br>
+                take to a basket
+                <br>
+                <button onclick="restart(${machineNumber})">Ok</button>
+                </p>
+                 `;
+                break;
+                }
+                if (dryers[i] == "open"){
+                    dryers[i] = "closed";
+                    const dryer = document.getElementById(`dryer${i}`);
+                    dryer.innerHTML = `
+                    <h2>Dryer ${i} (Full)</h2>
+                    <p class="washer">Waitng</span></p>
+                    `;
+                    const machine = document.getElementById(`machine${machineNumber}`);
+                    machine.innerHTML = `
+                    <h2>Wacher ${machineNumber} (Waiting for pickup)</h2>
+                    <p class="washer" id="machine${machineNumber}p">
+                    Take to  dryer ${i}
+                    <button onclick="transport(${i},${machineNumber})">Ok</button>
+                    </p>
+                     `;
+                    break;
+                }
+            }
+            
+        }
+
+
+        function transport(dryerNumber,machineNumber) {
+            const cycles = 2;
+            dryerCycle(dryerNumber,cycles,machineNumber);
+            restart(machineNumber);
+        }
+
+        
+        function restart(machineNumber) {
+            const machine = document.getElementById(`machine${machineNumber}`);
+            machine.innerHTML = `
+                <h2>Washer ${machineNumber} (Open)</h2>
+                <p class="washer" id="machine${machineNumber}p">
+                <button onclick="startMachine(${machineNumber})">Start</button>
+                </p>
+                `;
+        }
+        
+        function startDryer(dryerNumber) {
+                const dryer = document.getElementById(`dryer${dryerNumber}`);
+                const startButton = dryer.querySelector('button');
+                startButton.disabled = true;
+
+                const dryerp = document.getElementById(`dryer${dryerNumber}p`);
+                const menu = document.createElement('div');
+                menu.innerHTML = `
+                    <label for="Temperatura">Ciclos:</label>
+                    <select id="Temperatura">
+                        <option value="1">Low</option>
+                        <option value="2">Medium</option>
+                        <option value="3">High</option>
+                    </select>
+                    <button onclick="startDryerCycle(${dryerNumber})">Start Cycle</button>
+                `;
+
+                dryerp.appendChild(menu);
+        }
+        
+
+        function startDryerCycle(dryerNumber) {
+            dryers[dryerNumber] = "closed";
+            const cycles = parseInt(document.getElementById('Temperatura').value);
+            dryerCycle(dryerNumber,cycles,0);
+        }
+        function dryerCycle(dryerNumber,cycles,machineNumber) {
+            var washer;
+            if(machineNumber>0){
+                washer=`From washer ${machineNumber} <br>`;
+            }
+            else{
+                washer=" ";
+            }
+            const dryer = document.getElementById(`dryer${dryerNumber}`);
+            if (cycles >= 1 && cycles <= 3) {
+                dryer.innerHTML = `
+                    <h2>Dryer ${dryerNumber} (Full)</h2>
+                    <p class="washer"> ${washer} Time Remaining: <span id="timer${dryerNumber}">${cycles * 10} seconds</span></p>
+                `;
+
+                let remainingTime = cycles * 10;
+                const timer = setInterval(() => {
+                    remainingTime -= 10;
+                    document.getElementById(`timer${dryerNumber}`).textContent = `${remainingTime} seconds`;
+
+                    if (remainingTime <= 0) {
+                        clearInterval(timer);
+                        dryer.innerHTML = `
+                            <h2>Dryer ${dryerNumber} (Waiting for pickup)</h2>
+                            <p class="washer" id="dryer${dryerNumber}p">
+                            ${washer}
+                            <button onclick="restartDryer(${dryerNumber})">take home</button>
+                             </p>
+                        `;
+                    }
+                }, 10000); // Actualizar cada 10 segundos
+            } else {
+                alert('Por favor, ingresa un valor válido para los ciclos.');
+            }
+        }
+        function restartDryer(dryerNumber) {
+            dryers[dryerNumber] = "open";
+            const dryer = document.getElementById(`dryer${dryerNumber}`);
+            dryer.innerHTML = `
+                <h2>Washer ${dryerNumber} (Open)</h2>
+                <p class="washer" id="dryer${dryerNumber}p">
+                <button onclick="startDryer(${dryerNumber})">Start</button>
+                </p>
+                `;
+        }
+        
+    </script>
+</body>
+</html>
+
+
+

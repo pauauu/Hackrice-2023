@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>Laundry!</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Laundry App</h1>
+    <ul id="machines" class="washer-list">
+        <!-- Aquí se generarán las lavadoras dinámicamente -->
+    </ul>
+
+    <script>
+        const machines = document.getElementById("machines");
+        
+        // Function to start washing machine
+        function startMachine(machineId) {
+            const machine = document.getElementById(machineId);
+            const temperature = prompt("Select Temperature: ");
+            const cycle = prompt("Select cycle: ");
+            
+            if (temperature !== null) {
+                machine.classList.add("occupied");
+                machine.innerHTML = `<li><h3>Lavadora ${machineId}</h3><p class="washer">Temperatura: ${temperature} <br><br> Estado: Ocupada</p></li>`;
+                
+                // Iniciar el temporizador de 2 minutos
+                setTimeout(() => {
+                    machine.classList.remove("occupied");
+                    machine.innerHTML = `<li><h3>Lavadora ${machineId}</h3><p class="washer">Estado: Disponible <br><br> <button onclick="startMachine('machine${i}')" class="dropbtn">Start</button></p></li>`;
+                }, 120000); // 120000 ms = 2 minutos
+            }
+        }
+        
+        // Generar las lavadoras
+        for (let i = 1; i <= 6; i++) {
+            const machine = document.createElement("div");
+            machine.id = `machine${i}`;
+            machine.className = "machine";
+            machine.innerHTML = `<li><h3>Lavadora ${i}</h3><p class="washer">Estado: Disponible <br><br> <button onclick="startMachine('machine${i}')" class="dropbtn">Start</button></p></li>`;
+            machines.appendChild(machine);
+        }
+    </script>
+  </div>
+</body>
+</html>

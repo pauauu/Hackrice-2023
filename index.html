@@ -42,8 +42,42 @@
       </li>
     </ul>
   </div>
+  <div id="laundry-app" class="container">
+
+    <h1>Laundry Time!</h1>
+
+    <ul class="washer-list">
+      <li v-for="(washer, index) in washers">
+        <transition name="flip">
+            <p v-if="!washer.occupied" key="empty" class="washer">
+                <span class="dropdown">
+                    <button id="dropBtn" class="dropbtn">Start</button>  
+                    <span id="dropdownOptions" class="dropdown-content">
+                        <button v-on:click="toggleWasher(washer)">Hot</button>
+                        <button v-on:click="toggleWasher(washer)">Warm</button>
+                        <button v-on:click="toggleWasher(washer)">Cold</button>
+                    </span>
+                </span>
+            </p>
+            <p v-else key="full" class="washer">
+            <span id="timer"></span>
+            </p>
+        </transition>
+         <!-- <div class="dropdown">
+            <button id="dropBtn" class="dropbtn">Start</button>  
+            <div id="dropdownOptions" class="dropdown-content">
+                <button v-on:click="toggleWasher(washer)">Hot</button>
+                <button v-on:click="toggleWasher(washer)">Warm</button>
+                <button v-on:click="toggleWasher(washer)">Cold</button>
+            </div>
+        </div>
+        <div id="timer"></div> -->
+      </li>
+    </ul>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-  <script src="laundry.js"></script>
+
+  <script src="laundry2.js"></script>
 </body>
 </html>
