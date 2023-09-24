@@ -1,30 +1,6 @@
 const washers = [
     {
         index: 0,
-        time0: 0,
-        cycle: 'None',
-        occupied: false,
-    },
-    {
-        index: 1,
-        time: 0,
-        cycle: 'None',
-        occupied: false,
-    },
-    {
-        index: 2,
-        time: 0,
-        cycle: 'None',
-        occupied: false,
-    },
-    {
-        index: 3,
-        time: 0,
-        cycle: 'None',
-        occupied: false,
-    },
-    {
-        index: 4,
         time: 0,
         cycle: 'None',
         occupied: false,
