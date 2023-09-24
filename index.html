@@ -13,25 +13,31 @@
 
     <h1>Laundry Time!</h1>
 
-    <!-- <div class="flashcard-form">
-      <label for="front">Front
-        <input v-model="newFront" type="text" id="front">
-      </label>
-      <label for="back">Back
-        <input v-on:keypress.enter="addNew" v-model="newBack" type="text" id="back">
-      </label>
-      <button v-on:click="addNew">Add a New Card</button>
-      <span v-show="error" class="error">Oops! Flashcards need a front and a back.</span>
-    </div> -->
-
     <ul class="washer-list">
-      <li v-on:click="toggleWasher(washer)" v-for="(washer, index) in washers">
+      <li v-for="(washer, index) in washers">
         <transition name="flip">
-          <p v-if="!washer.occupied" key="empty" class="washer">{{washer.front}}
-          </p>
-          <p v-else key="full" class="washer">{{washer.back}}
-          </p>
+            <p v-if="!washer.occupied" key="empty" class="washer">
+                <span class="dropdown">
+                    <button id="dropBtn" class="dropbtn">Start</button>  
+                    <span id="dropdownOptions" class="dropdown-content">
+                        <button v-on:click="toggleWasher(washer)">Hot</button>
+                        <button v-on:click="toggleWasher(washer)">Warm</button>
+                        <button v-on:click="toggleWasher(washer)">Cold</button>
+                    </span>
+                </span>
+            </p>
+            <p v-else key="full" class="washer">
+            </p>
         </transition>
+         <div class="dropdown">
+            <button id="dropBtn" class="dropbtn">Start</button>  
+            <div id="dropdownOptions" class="dropdown-content">
+                <button v-on:click="toggleWasher(washer)">Hot</button>
+                <button v-on:click="toggleWasher(washer)">Warm</button>
+                <button v-on:click="toggleWasher(washer)">Cold</button>
+            </div>
+        </div>
+        <div id="timer"></div>
       </li>
     </ul>
   </div>
