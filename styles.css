@@ -1,6 +1,6 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
+    text-align: top center;
   }
   
   ul {
@@ -82,7 +82,7 @@ body {
     border-radius: 5px;
     border: 1px solid #87cb84;
     background-color: #87cb84;
-    padding: 8px 15px;
+    padding: 5px 10px;
     outline: none;
     font-size: 14px;
     font-weight: 700;
@@ -98,8 +98,8 @@ body {
   .dropbtn {
     background-color: #4CAF50;
     color: white;
-    padding: 16px;
-    font-size: 16px;
+    padding: 11px;
+    font-size: 14px;
     border: none;
     cursor: pointer;
   }
@@ -124,7 +124,7 @@ body {
   
   .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 12px 11px;
     text-decoration: none;
     display: block;
   }
@@ -134,27 +134,27 @@ body {
   .show {display:block;}
 
 
-  .base-timer {
+  .timer {
     position: relative;
     width: 100px;
     height: 100px;
   }
   
-  .base-timer__svg {
+  .timer {
     transform: scaleX(-1);
   }
   
-  .base-timer__circle {
+  .timer {
     fill: none;
     stroke: none;
   }
   
-  .base-timer__path-elapsed {
+  .timer {
     stroke-width: 7px;
     stroke: grey;
   }
   
-  .base-timer__path-remaining {
+  .remainingTime  {
     stroke-width: 7px;
     stroke-linecap: round;
     transform: rotate(90deg);
@@ -164,19 +164,19 @@ body {
     stroke: currentColor;
   }
   
-  .base-timer__path-remaining.blue {
+  .remainingTime.blue {
     color: rgb(136, 194, 241);
   }
   
-  .base-timer__path-remaining.orange {
+  .remainingTime.red.orange {
     color: orange;
   }
   
-  .base-timer__path-remaining.red {
+  .remainingTime.red {
     color: red;
   }
   
-  .base-timer__label {
+  .timer_label {
     position: absolute;
     width: 100px;
     height: 100px;
@@ -186,4 +186,7 @@ body {
     justify-content: center;
     font-size: 20px;
   }
-  
+
+.img 
+  position: absolute;
+  align-items: center;
