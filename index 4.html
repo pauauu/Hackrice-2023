@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>Laundry!</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Laundry Time!</h1>
+        <!-- Washers -->
+        <ul class="washer-list">
+            <li  id="machine1">
+                <h2>Washer 1 (Open)</h2>
+                <p class="washer" id="machine">
+                <button onclick="startMachine(1)">Load Washer</button>
+                </p>
+            </li>
+            <li id="machine2">
+                <h2>Washer 2 (Open)</h2>
+                <p class="washer" id="machine">
+                <button onclick="startMachine(2)">Load Washer</button>
+                </p>
+            </li>
+            <li  id="machine3">
+                <h2>Washer 3 (Open)</h2>
+                <p class="washer" id="machine">
+                <button onclick="startMachine(3)">Load Washer</button>
+                </p>
+            </li>
+            <li  id="machine4">
+                <h2>Washer 4 (Open)</h2>
+                <p class="washer" id="machine">
+                <button onclick="startMachine(4)">Load Washer</button>
+                </p>
+            </li>
+            <li  id="machine5">
+                <h2>Washer 5 (Open)</h2>
+                <p class="washer" id="machine">
+                <button onclick="startMachine(5)">Load Washer</button>
+                </p>
+            </li>
+            <li  id="machine6">
+                <h2>Washer 6 (Open)</h2>
+                <p class="washer" id="machine">
+                <button onclick="startMachine(6)">Load Washer</button>
+                </p>
+            </li>
+        </ul>
+        <!-- Dryers-->
+        <ul class="dryer-list">
+            <li  id="d_machine1">
+                <h2>Dryer 1 (Open)</h2>
+                <p class="dryer" id="d_machine">
+                <button onclick="d_startMachine(1)">Load Dryer</button>
+                </p>
+            </li>
+            <li id="d_machine2">
+                <h2>Dryer 2 (Open)</h2>
+                <p class="dryer" id="d_machine">
+                <button onclick="d_startMachine(2)">Load Dryer</button>
+                </p>
+            </li>
+            <li  id="d_machine3">
+                <h2>Dryer 3 (Open)</h2>
+                <p class="dryer" id="d_machine">
+                <button onclick="d_startMachine(3)">Load Dryer</button>
+                </p>
+            </li>
+            <li  id="d_machine4">
+                <h2>Dryer 4 (Open)</h2>
+                <p class="dryer" id="d_machine">
+                <button onclick="d_startMachine(4)">Load Dryer</button>
+                </p>
+            </li>
+            <li  id="d_machine5">
+                <h2>Dryer 5 (Open)</h2>
+                <p class="dryer" id="d_machine">
+                <button onclick="d_startMachine(5)">Load Dryer</button>
+                </p>
+            </li>
+            <li  id="d_machine6">
+                <h2>Dryer 6 (Open)</h2>
+                <p class="dryer" id="d_machine">
+                <button onclick="d_startMachine(6)">Load Dryer</button>
+                </p>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var s = 1;
+        function startMachine(machineNumber) {
+            if (s == 1){ 
+                s = 2;
+                console.log("hola");
+                const machine = document.getElementById(`machine${machineNumber}`);
+                const startButton = machine.querySelector('button');
+                startButton.disabled = true;
+
+                const menu = document.getElementById("machine");
+                menu.innerHTML = `
+                    <label for="cycles">Ciclos:</label>
+                    <select id="cycles">
+                        <option value="1">Normal Hot</option>
+                        <option value="2">Normal Warm</option>
+                        <option value="3">Perm Press Warm</option>
+                        <option value="4">Delicates Cold</option>
+                    </select>
+                    <button onclick="startCycle(${machineNumber})">Start Cycle</button>
+                `;
+
+                machine.appendChild(menu);
+            }
+        }
+        var s = 1;
+        function d_startMachine(d_machineNumber) {
+            if (s == 1){ 
+                s = 2;
+                console.log("hola");
+                const d_machine = document.getElementById(`d_machine${d_machineNumber}`);
+                const startButton = d_machine.querySelector('button');
+                startButton.disabled = true;
+
+                const menu = document.getElementById("d_machine");
+                menu.innerHTML = `
+                    <label for="Temperature">temp:</label>
+                    <select id="Temp">
+                        <option value="1">Low</option>
+                        <option value="2">Med</option>
+                        <option value="3">High</option>
+            
+                    </select>
+                    <button onclick="startCycle(${d_machineNumber})">Start Dry Cycle</button>
+                `;
+
+                d_machine.appendChild(menu);
+            }
+        }
+
+        function startCycle(machineNumber) {
+            s = 1;
+            const cycles = parseInt(document.getElementById('cycles').value);
+            const machine = document.getElementById(`machine${machineNumber}`);
+            
+            if (cycles >= 1 && cycles <= 4) {
+                machine.innerHTML = `
+                    <h2>Washer ${machineNumber} (Full)</h2>
+                    <p class="washer">Time Remaining: <span id="timer${machineNumber}">${cycles * 10} seconds</span></p>
+                `;
+
+                let remainingTime = cycles * 10;
+                const timer = setInterval(() => {
+                    remainingTime -= 10;
+                    document.getElementById(`timer${machineNumber}`).textContent = `${remainingTime} seconds`;
+
+                    if (remainingTime <= 0) {
+                        clearInterval(timer);
+                        machine.innerHTML = `
+                            <h2>Washer ${machineNumber} (Open)</h2>
+                            <p class="washer" id="machine">
+                            <button onclick="startMachine(${machineNumber})">Load Washer</button>
+                             </p>
+                        `;
+                    }
+                }, 10000); // Reloads time every ten seconds
+            } else {
+                alert('Please select a cycle');
+            }
+        }
+        function startCycle(d_machineNumber) {
+            s = 1;
+            const cycles = parseInt(document.getElementById('d_cycles').value);
+            const d_machine = document.getElementById(`d_machine${d_machineNumber}`);
+            
+            if (d_cycles >= 1 && d_cycles <= 4) {
+                d_machine.innerHTML = `
+                    <h2>Dryer ${d_machineNumber} (Full)</h2>
+                    <p class="dryer">Time Remaining: <span id="timer${d_machineNumber}">${cycles * 10} seconds</span></p>
+                `;
+
+                let remainingTime = cycles * 10;
+                const timer = setInterval(() => {
+                    remainingTime -= 10;
+                    document.getElementById(`timer${d_machineNumber}`).textContent = `${remainingTime} seconds`;
+
+                    if (remainingTime <= 0) {
+                        clearInterval(timer);
+                        d_machine.innerHTML = `
+                            <h2>Dryer ${d_machineNumber} (Open)</h2>
+                            <p class="dryer" id="d_machine">
+                            <button onclick="startMachine(${d_machineNumber})">Load Dryer</button>
+                             </p>
+                        `;
+                    }
+                }, 10000); // Reloads time every second
+            } else {
+                alert('Please select a cycle');
+            }
+        }
+    </script>
+</body>
+</html>

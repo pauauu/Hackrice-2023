@@ -18,10 +18,11 @@
     <script>
         const machines = document.getElementById("machines");
         
-        // Función para iniciar la lavadora
+        // Function to start washing machine
         function startMachine(machineId) {
             const machine = document.getElementById(machineId);
-            const temperature = prompt("Selecciona la temperatura del agua: caliente, tibia o fría");
+            const temperature = prompt("Select Temperature: ");
+            const cycle = prompt("Select cycle: ");
             
             if (temperature !== null) {
                 machine.classList.add("occupied");
@@ -30,7 +31,7 @@
                 // Iniciar el temporizador de 2 minutos
                 setTimeout(() => {
                     machine.classList.remove("occupied");
-                    machine.innerHTML = `<li><h3>Lavadora ${machineId}</h3><p class="washer">Estado: Disponible</p></li>`;
+                    machine.innerHTML = `<li><h3>Lavadora ${machineId}</h3><p class="washer">Estado: Disponible <br><br> <button onclick="startMachine('machine${i}')" class="dropbtn">Start</button></p></li>`;
                 }, 120000); // 120000 ms = 2 minutos
             }
         }
